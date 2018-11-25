@@ -24,6 +24,15 @@ class ObjectIdConverter(BaseConverter):
         return str(value)
 
 
+'''
+I've created a new method in order to separate concerns and let each method do once thing and one thing well.
+This way, the find restaurants can return a list and the find restaurant can return an object
+
+This way, it's the services layer the one who decides which one to call depending on the http path,and not a condition
+in code
+'''
+
+
 def find_restaurant(mongo, _id):
     return mongo.db.restaurant.find_one({"_id": ObjectId(_id)})
 

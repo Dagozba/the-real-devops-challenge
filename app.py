@@ -1,4 +1,3 @@
-from http import HTTPStatus
 from os import environ
 
 from flask import Flask, jsonify
@@ -22,8 +21,9 @@ def restaurants():
 @app.route("/api/v1/restaurant/<id>")
 def restaurant(id):
     restaurant_result = find_restaurant(mongo, id)
-    if not restaurant:
-        return '', HTTPStatus.NO_CONTENT
+    # By letting the services layer control the executed method by the request path, it can control the response
+    if restaurant_result is None:
+        return '', 204
     return jsonify(restaurant_result)
 
 

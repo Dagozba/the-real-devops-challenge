@@ -23,8 +23,5 @@ services:
       - 8080:8080
     env_file:
       - variables.env
-    depends_on:
-      - mongodb
-      - mongo-seed
 
   
