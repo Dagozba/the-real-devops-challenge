@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  MONGO_URI: mongodb://challenge_user:secretpassword@mongodb:27017/restaurants_db
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: application-server-variables-env
+  name: application-server-variables-env

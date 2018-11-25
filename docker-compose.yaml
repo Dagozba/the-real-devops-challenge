@@ -10,16 +10,21 @@ services:
 
   mongo-seed:
     build: ./mongo_seed
+    image: mongo-seed:1.0.0
     links:
       - mongodb
 
   application-server:
     build: .
+    image: application-server:1.0.0
     links:
       - mongodb
     ports:
       - 8080:8080
     env_file:
       - variables.env
+    depends_on:
+      - mongodb
+      - mongo-seed
 
   
