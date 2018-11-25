@@ -259,23 +259,23 @@ Write the deployment file *(yaml file)* used to deploy your `API` *(python app a
 
 ### Solution considerations
 
-###First Part
+##### First Part
 
 For the first part, I decided to create a new method in the database layer in order to separate the responsibilities of the methods
 as it was much cleaner to have one returning a list and another returning the object and leaving the choice to use one or another to the servicwes
 layer by taking the request path into account. This way the service layer can leverage on the return code
 
-###Second Part
+##### Second Part
 For the second part, I took advantage of the TravisCI Github integration and wrote a simple .travis.yml file which tests using 3.6 and lets Tox do the rest.
 
-###Third and Fourth parth
+##### Third and Fourth parth
 The third and fourth parts were straightforward as I started using Docker from the beginning to set my database up.
 For the seeding of the DB, I followed good practices and created another container that connects to the database one and seeds it using the provided file, then dies.
 
-###Fifth Parth
+##### Fifth Parth
 The docker-compose part is pretty straight forward as well, I defined the tags of the images and the location of their Dockferfiles.
 
-###Final part
+##### Final part
 For the final part, I chose Minikube for it's great simplicity. I had to install Kubectl, Minikube and an hypervisor.
 
 In order to generate valid deployment files to use in Minikube, I used "Kompose", which is a k8s tool to convert docker-compose files into deployment configurations. Works like a charm 
@@ -285,11 +285,11 @@ Note: I had to link the local Docker daemon to Minikube to let it use the contai
 
 In order to execute the application:
 
-###With Docker Compose:
+##### With Docker Compose:
 
 `docker-compose up`
 
-###With Minikube
+##### With Minikube
 
 First, let Minikube use your local Docker daemon:
 
