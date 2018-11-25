@@ -5,11 +5,6 @@ sudo: false
 language: python
 
 
-branches:
-  only:
-    - master
-
-
 #
 # Test test matrix is spelled out explicitly here.
 #
