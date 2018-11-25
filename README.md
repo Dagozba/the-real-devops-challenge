@@ -256,3 +256,56 @@ Once you've got dockerized all the API components *(python app and database)*, y
 If you are a container hero, an excellent devops... We want to see your expertise. Use a kubernetes system to deploy the `API`. We recommend you to use tools like [minikube](https://kubernetes.io/docs/setup/minikube/) or [microk8s](https://microk8s.io/).
 
 Write the deployment file *(yaml file)* used to deploy your `API` *(python app and mongodb)*.
+
+### Solution considerations
+
+#####First Part
+
+For the first part, I decided to create a new method in the database layer in order to separate the responsibilities of the methods
+as it was much cleaner to have one returning a list and another returning the object and leaving the choice to use one or another to the servicwes
+layer by taking the request path into account. This way the service layer can leverage on the return code
+
+#####Second Part
+For the second part, I took advantage of the TravisCI Github integration and wrote a simple .travis.yml file which tests using 3.6 and lets Tox do the rest.
+
+#####Third and Fourth parth
+The third and fourth parts were straightforward as I started using Docker from the beginning to set my database up.
+For the seeding of the DB, I followed good practices and created another container that connects to the database one and seeds it using the provided file, then dies.
+
+#####Fifth Parth
+The docker-compose part is pretty straight forward as well, I defined the tags of the images and the location of their Dockferfiles.
+
+#####Final part
+For the final part, I chose Minikube for it's great simplicity. I had to install Kubectl, Minikube and an hypervisor.
+
+In order to generate valid deployment files to use in Minikube, I used "Kompose", which is a k8s tool to convert docker-compose files into deployment configurations. Works like a charm 
+as I just had to convert and use kubectl to start it in minikube. As a little caveat; I had to add the "type: NodePort" to the service manually, otherwise it wouldn't be reachable from outside the cluster.
+
+Note: I had to link the local Docker daemon to Minikube to let it use the containers wihtout pushing them.
+
+In order to execute the application:
+
+#####With Docker Compose:
+
+`docker-compose up`
+
+#####With Minikube
+
+First, let Minikube use your local Docker daemon:
+
+`eval $(minikube docker-env)`
+
+Then, build with docker-compose again so Minikube can have access to the images:
+
+`docker-compose build`
+
+Now just execute kubectl with the generated yaml files:
+
+`kubectl create -f application-server-variables-env-configmap.yaml,application-server-service.yaml,application-server-deployment.yaml,mongodb-deployment.yaml,mongodb-service.yaml,mongo-seed-deployment.yaml`
+
+And, in order to get application service ip:
+
+`minikube service  application-server --url`
+
+
+ 
