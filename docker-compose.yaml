@@ -1,0 +1,25 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  mongodb:
+    image: mongo:4.0.4-xenial
+    build: ./mongo
+    ports:
+      - 27017:27017
+
+  mongo-seed:
+    build: ./mongo_seed
+    links:
+      - mongodb
+
+  application-server:
+    build: .
+    links:
+      - mongodb
+    ports:
+      - 8080:8080
+    env_file:
+      - variables.env
+
+  
