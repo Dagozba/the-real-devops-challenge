@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/Dagozba/the-real-devops-challenge.svg?branch=otherbranch)](https://travis-ci.com/Dagozba/the-real-devops-challenge)
 # [CommitConf] The real DevOps challenge
 
 ![Intelygenz](./assets/intelygenz.logo.jpeg)![CommitConf](./assets/commit-conf.logo.png)
